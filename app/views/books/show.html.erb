@@ -1,0 +1,35 @@
+
+<div>
+  <h2>Book detail</h2>
+  <table>
+    <tbody>
+      <% @books.each do |book| %>
+        <tr>
+          <td>
+            <%= image_tag book.user.get_profile_image(80,80) %>
+            <br>
+            <%= link_to user_path do %>
+              <%= book.user.name %>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to book_path(book.id) do %>
+              <%= book.title %>
+            <% end %>
+          </td>
+          <td><%= book.opinion %></td>
+          <td>
+            <% if @book.user == current_user %>
+              <%= link_to 'Edit', edit_book_path(book.id) %>
+            <% end %>
+          </td>
+          <td>
+            <% if @book.user == current_user %>
+              <%= link_to 'Destroy', @book, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
