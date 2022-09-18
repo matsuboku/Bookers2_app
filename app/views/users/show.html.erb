@@ -1,5 +1,5 @@
 <main>
-  <p id="notice">Signed in successfully.</p>
+  <p id="notice"></p>
   <div class="container px-5 px-sm-0">
     <div class="row">
       <%= render 'books/list', book: @book, user: @user %>
@@ -23,11 +23,11 @@
                 <% end %>
               </td>
               <td>
-                <%= link_to book_path(books.user_id) do %>
+                <%= link_to book_path(books.id) do %>
                   <%= books.title %>
                 <% end %>
               </td>
-              <td><%= books.opinion %></td>
+              <td><%= books.body %></td>
             </tr>
             <% end %>
           </tbody>

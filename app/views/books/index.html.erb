@@ -1,6 +1,17 @@
 
 <main>
-  <p id="notice">Signed in successfully.</p>
+  <p id="notice"></p>
+  <% if @book.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this book from being saved:</h2>
+      <ul>
+         <% @book.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="container px-5 px-sm-0">
     <div class="row">
       <%= render 'books/list', book: @book, user: @user %>
@@ -16,23 +27,19 @@
             </tr>
           </thead>
           <tbody>
-            <%= @books.each do |book| %>
+            <% @books.each do |book| %>
               <tr>
                 <td>
-                  <%= link_to users_path(current_user.id) do %>
+                  <%= link_to user_path(book.user) do %>
                     <%= image_tag book.user.get_profile_image(80,80) %>
-                    <br>
-                    <%= link_to user_path(@user.id) do %>
-                      <%= book.user.name %>
-                    <% end %>
                   <% end %>
                 </td>
                 <td>
-                  <%= link_to book_path(book.user_id) do %>
+                  <%= link_to book_path(book.id) do %>
                     <%= book.title %>
                   <% end %>
                 </td>
-                <td><%= book.opinion %></td>
+                <td><%= book.body %></td>
               </tr>
             <% end %>
           </tbody>

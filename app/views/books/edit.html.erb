@@ -1,27 +1,41 @@
-<% if flash[:notice] %>
-     <p id="notice">
-       <%= flash[:notice] %>
-     </p>
-<% end %>
-
-<h1>Editing Book</h1>
-
-
-<%= form_with model: @book, url: book_path(@book.id), method: :patch do |f| %>
-
-  <div class="field">
-      <label for="title">Title</label>
-      <%= f.text_field :title %>
+<main>
+  <% if flash[:notice] %>
+       <p id="notice">
+         <%= flash[:notice] %>
+       </p>
+  <% end %>
+  <% if @book.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this book from being saved:</h2>
+      <ul>
+         <% @book.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
-    <div class="field">
-      <label for="body">Opinion</label>
-      <%= f.text_area :body %>
+  <% end %>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+        <h1>Editing Book</h1>
+        <%= form_with model: @book, url: book_path(@book.id), method: :patch do |f| %>
+          <div class="form-group">
+            <label for="book_title">Title</label>
+            <%= f.text_field :title, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <label for="book_opinion">Opinion</label>
+            <%= f.text_area :body, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.submit 'Update Book', class: 'btn btn-success' %>
+          </div>
+          <%= link_to 'Show', @book %>
+            |
+          <a class="back" href="/books">Back</a>
+        <% end %>
+      </div>
     </div>
-<div class="actions"><%= f.submit 'Update Book' %></div>
-
-<%= link_to 'Show', @book %>
-
-|
-
-<a class="back" href="/books">Back</a>
-<% end %>
+  </div>
+</main>
